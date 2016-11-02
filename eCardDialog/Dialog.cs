@@ -19,17 +19,21 @@ namespace eCardDialog
         private ordination[] ordinationen;
         taetigkeitsBereich bereich;
 
+        public Dialog()
+        {
+            this.baseService = new BaseService();
+            this.baseService.Url = "https://10.196.4.114/base/15";
+            this.readers = baseService.getCardReaders();
+            this.reader = readers[0];
+            this.myInfo = new produktInfo();
+            this.myInfo.produktId = 900101;
+            this.myInfo.produktVersion = "0.0.1";
+            this.myInfo.produktIdSpecified = true;
+        }
+
         public String createDialog()
         {
-            baseService = new BaseService();
-            baseService.Url = "https://10.196.4.114/base/15";
-            readers = baseService.getCardReaders();
-            reader = readers[0];
-            myInfo = new produktInfo();
-            myInfo.produktId = 900101;
-            myInfo.produktVersion = "0.0.1";
-            myInfo.produktIdSpecified = true;
-            myCard = baseService.getCardData(reader.id);
+            this.myCard = baseService.getCardData(reader.id);
             return baseService.createDialog(reader.id, myInfo, null, true, true);
         }
 
@@ -38,7 +42,7 @@ namespace eCardDialog
             return this.dialogId;
         }
 
-        public void getVertragspartner()
+        private void getVertragspartner()
         {
             partner = baseService.authenticateDialog(dialogId, myCard.cin, "1122", reader.id);
         }
@@ -48,7 +52,7 @@ namespace eCardDialog
             bereich = ordinationen[0].taetigkeitsBereich[0];
         }
 
-        public void setDialogAddress()
+        private void setDialogAddress()
         {
             baseService.setDialogAddress(dialogId, ordinationen[0].ordinationId, bereich.id, null, null, null);
             property[] test = baseService.checkStatus(dialogId);
@@ -57,7 +61,7 @@ namespace eCardDialog
             //Console.ReadLine();
         }
 
-        public void setOrdination()
+        private void setOrdination()
         {
             this.ordinationen = partner.ordination;
         }
