@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace eCardDialog
 {
-    class Dialogcreate
+    public class Dialog
     {
         private BaseService baseService;
         private cardReader reader;
@@ -49,12 +49,17 @@ namespace eCardDialog
             property[] test = baseService.checkStatus(dialogId);
             test = baseService.checkStatus(dialogId);
             Console.WriteLine("Dialog aufgebaut" + " Dialog-Status: " + test[0].value);
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         public void setOrdination()
         {
             this.ordinationen = partner.ordination;
+        }
+
+        public ordination[] getOrdination()
+        {
+            return this.ordinationen;
         }
 
         public void createDialog()
@@ -64,34 +69,25 @@ namespace eCardDialog
             setOrdination();
             setTaetigkeitsbereich();
             setDialogAddress();
-            bla();
+            //bla();
         }
 
-        public void bla()
+        public cardReader getReader()
         {
-            //KSE Abfrage
-            Console.ReadLine();
-            card eCard = baseService.getCardData(reader.id);
-            baseProperty[] prop = baseService.getFachgebieteByOrdId(dialogId, ordinationen[0].ordinationId, bereich.id);
-            Console.WriteLine("getFachgebieteByOrdId funktioniert");
-            Console.ReadLine();
-
-            KSERef.KseService kseService = new KSERef.KseService();
-            kseService.Url = "https://10.196.4.114/kse/17";
-            KSERef.behandlungsfallZusatzProperty[] behandlungsfall = kseService.getBehandlungsfaelleByFachgebietZusatz("01");
-
-            KSERef.baseProperty[] behandlungsfallCode = kseService.getBehandlungsfaelle();
-
-            Console.WriteLine(behandlungsfall[0]);
-            Console.ReadLine();
-
-            svtProperty[] svtProp = baseService.getSVTs();
-            Console.WriteLine(svtProp[0]);
-            Console.ReadLine();
-
-            KSERef.ergebnisKonsultation ergebnisKonstultation = kseService.doKonsultation(eCard.cin, dialogId, eCard.nummer, svtProp[0].code, null, prop[0].code, behandlungsfallCode[0].code,null,null,true, true,reader.id);
-
-            baseService.closeDialog(dialogId);
+            return this.reader;
         }
+
+        public taetigkeitsBereich getBereich()
+        {
+            return this.bereich;
+        }
+
+        public BaseService getBaseService()
+        {
+            return this.baseService;
+        }
+
+
+        
     }
 }
