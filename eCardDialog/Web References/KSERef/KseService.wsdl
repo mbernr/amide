@@ -1,0 +1,1539 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://soap.kse.client.chipkarte.at" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="KseService" targetNamespace="http://soap.kse.client.chipkarte.at" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema xmlns:tns="http://exceptions.soap.base.client.chipkarte.at" elementFormDefault="qualified" targetNamespace="http://exceptions.soap.base.client.chipkarte.at" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="AccessException" type="tns:accessExceptionContent" />
+      <xs:element name="CardException" type="tns:cardExceptionContent" />
+      <xs:element name="DialogException" type="tns:dialogExceptionContent" />
+      <xs:element name="ServiceException" type="tns:serviceExceptionContent" />
+      <xs:complexType name="accessExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="baseExceptionContent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="errorCode" type="xs:int" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="cardExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="dialogExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="serviceExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:kse="http://soap.kse.client.chipkarte.at" xmlns:tns="http://exceptions.soap.kse.client.chipkarte.at" xmlns:base="http://soap.base.client.chipkarte.at" xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" elementFormDefault="qualified" targetNamespace="http://exceptions.soap.kse.client.chipkarte.at" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://exceptions.soap.base.client.chipkarte.at" />
+      <xs:import namespace="http://soap.kse.client.chipkarte.at" />
+      <xs:element name="InvalidParameterException" type="tns:invalidParameterExceptionContent" />
+      <xs:element name="KseException" type="tns:kseExceptionContent" />
+      <xs:complexType name="invalidParameterExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="baseexc:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="kseExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="baseexc:baseExceptionContent">
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="anspruch" nillable="true" type="kse:anspruch" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" elementFormDefault="qualified" targetNamespace="http://soap.base.client.chipkarte.at" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="baseProperty">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="nurAnzeige" type="xs:boolean" />
+          <xs:element minOccurs="0" name="text" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="property">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="key" type="xs:string" />
+          <xs:element minOccurs="0" name="value" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="svPersonV2">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="druckNachname" type="xs:string" />
+          <xs:element minOccurs="0" name="druckTitelHinten" type="xs:string" />
+          <xs:element minOccurs="0" name="druckTitelVorne" type="xs:string" />
+          <xs:element minOccurs="0" name="druckVorname" type="xs:string" />
+          <xs:element minOccurs="0" name="geburtsdatum" type="xs:string" />
+          <xs:element minOccurs="0" name="geschlecht" type="xs:string" />
+          <xs:element minOccurs="0" name="nachname" type="xs:string" />
+          <xs:element minOccurs="0" name="svNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="titelHinten" type="xs:string" />
+          <xs:element minOccurs="0" name="titelVorne" type="xs:string" />
+          <xs:element minOccurs="0" name="vorname" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:base="http://soap.base.client.chipkarte.at" xmlns:kseexc="http://exceptions.soap.kse.client.chipkarte.at" elementFormDefault="qualified" targetNamespace="http://soap.kse.client.chipkarte.at" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://soap.base.client.chipkarte.at" />
+      <xs:element name="aendernKonsultation" type="tns:aendernKonsultation" />
+      <xs:element name="aendernKonsultationResponse" type="tns:aendernKonsultationResponse" />
+      <xs:element name="checkStatus" type="tns:checkStatus" />
+      <xs:element name="checkStatusResponse" type="tns:checkStatusResponse" />
+      <xs:element name="deleteKonsultationsdatenAnfrage" type="tns:deleteKonsultationsdatenAnfrage" />
+      <xs:element name="deleteKonsultationsdatenAnfrageResponse" type="tns:deleteKonsultationsdatenAnfrageResponse" />
+      <xs:element name="deleteOfflineRecord" type="tns:deleteOfflineRecord" />
+      <xs:element name="deleteOfflineRecordResponse" type="tns:deleteOfflineRecordResponse" />
+      <xs:element name="doKonsultation" type="tns:doKonsultation" />
+      <xs:element name="doKonsultationOffline" type="tns:doKonsultationOffline" />
+      <xs:element name="doKonsultationOfflineResponse" type="tns:doKonsultationOfflineResponse" />
+      <xs:element name="doKonsultationResponse" type="tns:doKonsultationResponse" />
+      <xs:element name="downloadKonsultationsdaten" type="tns:downloadKonsultationsdaten" />
+      <xs:element name="downloadKonsultationsdatenResponse" type="tns:downloadKonsultationsdatenResponse" />
+      <xs:element name="getBehandlungsfaelle" type="tns:getBehandlungsfaelle" />
+      <xs:element name="getBehandlungsfaelleByFachgebiet" type="tns:getBehandlungsfaelleByFachgebiet" />
+      <xs:element name="getBehandlungsfaelleByFachgebietResponse" type="tns:getBehandlungsfaelleByFachgebietResponse" />
+      <xs:element name="getBehandlungsfaelleByFachgebietZusatz" type="tns:getBehandlungsfaelleByFachgebietZusatz" />
+      <xs:element name="getBehandlungsfaelleByFachgebietZusatzResponse" type="tns:getBehandlungsfaelleByFachgebietZusatzResponse" />
+      <xs:element name="getBehandlungsfaelleResponse" type="tns:getBehandlungsfaelleResponse" />
+      <xs:element name="getKonsultationsdaten" type="tns:getKonsultationsdaten" />
+      <xs:element name="getKonsultationsdatenAnfragen" type="tns:getKonsultationsdatenAnfragen" />
+      <xs:element name="getKonsultationsdatenAnfragenResponse" type="tns:getKonsultationsdatenAnfragenResponse" />
+      <xs:element name="getKonsultationsdatenResponse" type="tns:getKonsultationsdatenResponse" />
+      <xs:element name="getLimit" type="tns:getLimit" />
+      <xs:element name="getLimitResponse" type="tns:getLimitResponse" />
+      <xs:element name="getNumberOfflineKonsultationen" type="tns:getNumberOfflineKonsultationen" />
+      <xs:element name="getNumberOfflineKonsultationenResponse" type="tns:getNumberOfflineKonsultationenResponse" />
+      <xs:element name="getNumberOfflineNachsignaturen" type="tns:getNumberOfflineNachsignaturen" />
+      <xs:element name="getNumberOfflineNachsignaturenResponse" type="tns:getNumberOfflineNachsignaturenResponse" />
+      <xs:element name="getOfflineRecords" type="tns:getOfflineRecords" />
+      <xs:element name="getOfflineRecordsResponse" type="tns:getOfflineRecordsResponse" />
+      <xs:element name="nachsignierenKonsultationen" type="tns:nachsignierenKonsultationen" />
+      <xs:element name="nachsignierenKonsultationenOffline" type="tns:nachsignierenKonsultationenOffline" />
+      <xs:element name="nachsignierenKonsultationenOfflineResponse" type="tns:nachsignierenKonsultationenOfflineResponse" />
+      <xs:element name="nachsignierenKonsultationenResponse" type="tns:nachsignierenKonsultationenResponse" />
+      <xs:element name="sendKonsultationsdatenAnfrage" type="tns:sendKonsultationsdatenAnfrage" />
+      <xs:element name="sendKonsultationsdatenAnfrageResponse" type="tns:sendKonsultationsdatenAnfrageResponse" />
+      <xs:element name="sendOfflineKonsultation" type="tns:sendOfflineKonsultation" />
+      <xs:element name="sendOfflineKonsultationResponse" type="tns:sendOfflineKonsultationResponse" />
+      <xs:element name="sendOfflineNachsignatur" type="tns:sendOfflineNachsignatur" />
+      <xs:element name="sendOfflineNachsignaturResponse" type="tns:sendOfflineNachsignaturResponse" />
+      <xs:element name="sendZusatzinformationsAntwort" type="tns:sendZusatzinformationsAntwort" />
+      <xs:element name="sendZusatzinformationsAntwortResponse" type="tns:sendZusatzinformationsAntwortResponse" />
+      <xs:element name="stornierenKonsultation" type="tns:stornierenKonsultation" />
+      <xs:element name="stornierenKonsultationResponse" type="tns:stornierenKonsultationResponse" />
+      <xs:element name="wiederinkraftsetzenKonsultation" type="tns:wiederinkraftsetzenKonsultation" />
+      <xs:element name="wiederinkraftsetzenKonsultationResponse" type="tns:wiederinkraftsetzenKonsultationResponse" />
+      <xs:element name="getErstkonsultationen" type="tns:getErstkonsultationen" />
+      <xs:element name="getErstkonsultationenResponse" type="tns:getErstkonsultationenResponse" />
+      <xs:complexType name="getErstkonsultationen">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="svNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="fachgebietsCode" type="xs:string" />
+          <xs:element minOccurs="0" name="nacherfassung" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getErstkonsultationenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:erstkonsultationsdaten" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="erstkonsultationsdaten">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="svNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="svNummerAbgeleitet" type="xs:string" />
+          <xs:element minOccurs="0" name="anspruchId" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetNachname" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetVorname" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetDruckNachname" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetDruckVorname" type="xs:string" />
+          <xs:element minOccurs="0" name="svtCode" type="xs:string" />
+          <xs:element minOccurs="0" name="fachgebietsCode" type="xs:string" />
+          <xs:element minOccurs="0" name="behandlungsfallCode" type="xs:string" />
+          <xs:element minOccurs="0" name="behandlungsDatum" type="xs:string" />
+          <xs:element minOccurs="0" name="konsultationsartCode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="aendernKonsultation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="konsId" type="xs:long" />
+          <xs:element minOccurs="0" name="konsVersion" type="xs:int" />
+          <xs:element minOccurs="0" name="behandlungsfallCode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="aendernKonsultationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:konsultationsBeleg" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="anspruch">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="abgeleitetDruckNachname" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetDruckTitelHinten" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetDruckTitelVorne" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetDruckVorname" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetNachname" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetTitelHinten" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetTitelVorne" type="xs:string" />
+          <xs:element minOccurs="0" name="abgeleitetVorname" type="xs:string" />
+          <xs:element minOccurs="0" name="ablSvNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="id" type="xs:string" />
+          <xs:element minOccurs="0" name="svtCode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="behandlungsfallZusatzProperty">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="baseProperty" type="base:baseProperty" />
+          <xs:element minOccurs="0" name="zusatzRecht" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkStatus">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkStatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="base:property" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="deleteKonsultationsdatenAnfrage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="anfrageId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="deleteKonsultationsdatenAnfrageResponse">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="deleteOfflineRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="offlineId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="deleteOfflineRecordResponse">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="doKonsultation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cin" type="xs:string" />
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="svNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="svtCode" type="xs:string" />
+          <xs:element minOccurs="0" name="anspruchId" type="xs:string" />
+          <xs:element minOccurs="0" name="fachgebietsCode" type="xs:string" />
+          <xs:element minOccurs="0" name="behandlungsfallCode" type="xs:string" />
+          <xs:element minOccurs="0" name="nacherfassungsgrundCode" type="xs:string" />
+          <xs:element minOccurs="0" name="behandlungsdatum" type="xs:string" />
+          <xs:element minOccurs="0" name="forceExecution" type="xs:boolean" />
+          <xs:element minOccurs="0" name="cardReaderId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="doKonsultationOffline">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cin" type="xs:string" />
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="svNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="svtCode" type="xs:string" />
+          <xs:element minOccurs="0" name="fachgebietsCode" type="xs:string" />
+          <xs:element minOccurs="0" name="behandlungsfallCode" type="xs:string" />
+          <xs:element minOccurs="0" name="nacherfassungsgrundCode" type="xs:string" />
+          <xs:element minOccurs="0" name="behandlungsdatum" type="xs:string" />
+          <xs:element minOccurs="0" name="forceExecution" type="xs:boolean" />
+          <xs:element minOccurs="0" name="cardReaderId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="doKonsultationOfflineResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:offlineRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="doKonsultationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:ergebnisKonsultation" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="downloadKonsultationsdaten">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="anfrageId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="downloadKonsultationsdatenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:konsultationsdaten" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ergebnisKonsultation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="konsultationsDaten" type="tns:konsultationsdaten" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="kseMessageCodes" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="nachsignKonsultationen" nillable="true" type="tns:konsultationsBeleg" />
+          <xs:element minOccurs="0" name="zusatzinformation" type="tns:zusatzinformation" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getBehandlungsfaelle">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="getBehandlungsfaelleByFachgebiet">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="fachgebietCode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getBehandlungsfaelleByFachgebietResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="base:baseProperty" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getBehandlungsfaelleByFachgebietZusatz">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="fachgebietCode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getBehandlungsfaelleByFachgebietZusatzResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:behandlungsfallZusatzProperty" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getBehandlungsfaelleResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="base:baseProperty" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getKonsultationsdaten">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="selektionsKriterien" type="tns:suchFilter" />
+          <xs:element minOccurs="0" name="selektionsart" type="xs:string" />
+          <xs:element minOccurs="0" name="sortierung" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getKonsultationsdatenAnfragen">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="onlyReady" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getKonsultationsdatenAnfragenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:konsultationdatenAnfrage" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getKonsultationsdatenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:konsultationsdaten" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getLimit">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="zeitraum" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getLimitResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:limit" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNumberOfflineKonsultationen">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNumberOfflineKonsultationenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:long" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNumberOfflineNachsignaturen">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNumberOfflineNachsignaturenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:long" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getOfflineRecords">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getOfflineRecordsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:offlineRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="konsultationdatenAnfrage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="anfrageId" type="xs:string" />
+          <xs:element minOccurs="0" name="filter" type="tns:suchFilter" />
+          <xs:element minOccurs="0" name="status" type="xs:int" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="konsultationsBeleg">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="abrechnungsPeriode" type="xs:string" />
+          <xs:element minOccurs="0" name="abstimmungsBeleg" type="xs:string" />
+          <xs:element minOccurs="0" name="anspruchsart" type="xs:string" />
+          <xs:element minOccurs="0" name="bearbeitungsDatum" type="xs:string" />
+          <xs:element minOccurs="0" name="bearbeitungsDatumClientSignatur" type="xs:string" />
+          <xs:element minOccurs="0" name="behandlungsDatum" type="xs:string" />
+          <xs:element minOccurs="0" name="behandlungsfallCode" type="xs:string" />
+          <xs:element minOccurs="0" name="belegInhaltVersion" type="xs:int" />
+          <xs:element minOccurs="0" name="bezugsBereich" type="xs:string" />
+          <xs:element minOccurs="0" name="bundeslandCode" type="xs:string" />
+          <xs:element minOccurs="0" name="clientSignatur" type="xs:base64Binary" />
+          <xs:element minOccurs="0" name="fachgebietsCode" type="xs:string" />
+          <xs:element minOccurs="0" name="id" type="xs:long" />
+          <xs:element minOccurs="0" name="konsultationsartCode" type="xs:string" />
+          <xs:element minOccurs="0" name="kostenanteilbefreit" type="xs:boolean" />
+          <xs:element minOccurs="0" name="leistungsSvtCode" type="xs:string" />
+          <xs:element minOccurs="0" name="leistungsrechtlichesLimitGeprueft" type="xs:string" />
+          <xs:element minOccurs="0" name="ordNummer" type="xs:int" />
+          <xs:element minOccurs="0" name="originalSvtCode" type="xs:string" />
+          <xs:element minOccurs="0" name="overLimit" type="xs:boolean" />
+          <xs:element minOccurs="0" name="rezeptgebbefreit" type="xs:boolean" />
+          <xs:element minOccurs="0" name="serverSignatur" type="xs:base64Binary" />
+          <xs:element minOccurs="0" name="signaturFormatClient" type="xs:string" />
+          <xs:element minOccurs="0" name="signaturFormatServer" type="xs:string" />
+          <xs:element minOccurs="0" name="status" type="xs:string" />
+          <xs:element minOccurs="0" name="svNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="svNummerAbgeleitet" type="xs:string" />
+          <xs:element minOccurs="0" name="txnNummer" type="xs:long" />
+          <xs:element minOccurs="0" name="verrechnungsSvtCode" type="xs:string" />
+          <xs:element minOccurs="0" name="versichertenKategorie" type="xs:string" />
+          <xs:element minOccurs="0" name="versichertenartCode" type="xs:string" />
+          <xs:element minOccurs="0" name="version" type="xs:int" />
+          <xs:element minOccurs="0" name="vpNummer" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="konsultationsdaten">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="angehoerigenDaten" type="base:svPersonV2" />
+          <xs:element minOccurs="0" name="konsultationsBeleg" type="tns:konsultationsBeleg" />
+          <xs:element minOccurs="0" name="versichertenDaten" type="base:svPersonV2" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="limit">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="fachgebietsCode" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="limitConfig" nillable="true" type="tns:limitKonfig" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="limitValue" nillable="true" type="tns:limitValue" />
+          <xs:element minOccurs="0" name="svtCode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="limitKonfig">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="datumBis" type="xs:string" />
+          <xs:element minOccurs="0" name="datumVon" type="xs:string" />
+          <xs:element minOccurs="0" name="limitCode" type="xs:string" />
+          <xs:element minOccurs="0" name="limitType" type="xs:string" />
+          <xs:element minOccurs="0" name="limitValue" type="xs:int" />
+          <xs:element minOccurs="0" name="limitValuePercent" type="xs:int" />
+          <xs:element minOccurs="0" name="valueType" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="limitValue">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="limitCode" type="xs:string" />
+          <xs:element minOccurs="0" name="value" type="xs:long" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="nachsignierenKonsultationen">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="cin" type="xs:string" />
+          <xs:element minOccurs="0" name="forceExecution" type="xs:boolean" />
+          <xs:element minOccurs="0" name="cardReaderId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="nachsignierenKonsultationenOffline">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="cin" type="xs:string" />
+          <xs:element minOccurs="0" name="forceExecution" type="xs:boolean" />
+          <xs:element minOccurs="0" name="cardReaderId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="nachsignierenKonsultationenOfflineResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:offlineRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="nachsignierenKonsultationenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:konsultationsBeleg" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="offlineKonsultation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="behandlungsDatum" type="xs:string" />
+          <xs:element minOccurs="0" name="behandlunsfallCode" type="xs:string" />
+          <xs:element minOccurs="0" name="fachgebietsCode" type="xs:string" />
+          <xs:element minOccurs="0" name="konsultationsartCode" type="xs:string" />
+          <xs:element minOccurs="0" name="svtCode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="offlineRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="erstellungsDatum" type="xs:string" />
+          <xs:element minOccurs="0" name="id" type="xs:string" />
+          <xs:element minOccurs="0" name="nachname" type="xs:string" />
+          <xs:element minOccurs="0" name="offlineFrist" type="xs:string" />
+          <xs:element minOccurs="0" name="offlineKonsultation" type="tns:offlineKonsultation" />
+          <xs:element minOccurs="0" name="svNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="type" type="xs:int" />
+          <xs:element minOccurs="0" name="vorname" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendKonsultationsdatenAnfrage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="selektionsKriterien" type="tns:suchFilter" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendKonsultationsdatenAnfrageResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendOfflineKonsultation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="offlineId" type="xs:string" />
+          <xs:element minOccurs="0" name="fachgebietsCode" type="xs:string" />
+          <xs:element minOccurs="0" name="behandlungsfallCode" type="xs:string" />
+          <xs:element minOccurs="0" name="svtCode" type="xs:string" />
+          <xs:element minOccurs="0" name="anspruchId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendOfflineKonsultationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:ergebnisKonsultation" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendOfflineNachsignatur">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="offlineId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendOfflineNachsignaturResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:konsultationsBeleg" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendZusatzinformationsAntwort">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="zusatzinformationsAntwortId" type="xs:long" />
+          <xs:element minOccurs="0" name="zusatzinformationsAntwort" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendZusatzinformationsAntwortResponse">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="stornierenKonsultation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="konsId" type="xs:long" />
+          <xs:element minOccurs="0" name="konsVersion" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="stornierenKonsultationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:konsultationsBeleg" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="suchFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="behandlungsfallCode" type="xs:string" />
+          <xs:element minOccurs="0" name="datumBis" type="xs:string" />
+          <xs:element minOccurs="0" name="datumVon" type="xs:string" />
+          <xs:element minOccurs="0" name="fachgebietsCode" type="xs:string" />
+          <xs:element minOccurs="0" name="konsultationsartCode" type="xs:string" />
+          <xs:element minOccurs="0" name="ordId" type="xs:string" />
+          <xs:element minOccurs="0" name="SVNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="svtCode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="wiederinkraftsetzenKonsultation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="konsId" type="xs:long" />
+          <xs:element minOccurs="0" name="konsVersion" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="wiederinkraftsetzenKonsultationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:ergebnisKonsultation" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="zusatzinformation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="antwortAnzeigeBedingung" type="xs:int" />
+          <xs:element minOccurs="0" name="svtCode" type="xs:string" />
+          <xs:element minOccurs="0" name="zusatzinformationsAntwortId" type="xs:long" />
+          <xs:element minOccurs="0" name="zusatzinformationsText" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </types>
+  <message name="AccessException">
+    <part xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" name="fault" element="baseexc:AccessException" />
+  </message>
+  <message name="CardException">
+    <part xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" name="fault" element="baseexc:CardException" />
+  </message>
+  <message name="DialogException">
+    <part xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" name="fault" element="baseexc:DialogException" />
+  </message>
+  <message name="InvalidParameterException">
+    <part xmlns:kseexc="http://exceptions.soap.kse.client.chipkarte.at" name="fault" element="kseexc:InvalidParameterException" />
+  </message>
+  <message name="KseException">
+    <part xmlns:kseexc="http://exceptions.soap.kse.client.chipkarte.at" name="fault" element="kseexc:KseException" />
+  </message>
+  <message name="ServiceException">
+    <part xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" name="fault" element="baseexc:ServiceException" />
+  </message>
+  <message name="getErstkonsultationen">
+    <part name="parameters" element="tns:getErstkonsultationen" />
+  </message>
+  <message name="getErstkonsultationenResponse">
+    <part name="parameters" element="tns:getErstkonsultationenResponse" />
+  </message>
+  <message name="aendernKonsultation">
+    <part name="parameters" element="tns:aendernKonsultation" />
+  </message>
+  <message name="aendernKonsultationResponse">
+    <part name="parameters" element="tns:aendernKonsultationResponse" />
+  </message>
+  <message name="checkStatus">
+    <part name="parameters" element="tns:checkStatus" />
+  </message>
+  <message name="checkStatusResponse">
+    <part name="parameters" element="tns:checkStatusResponse" />
+  </message>
+  <message name="deleteKonsultationsdatenAnfrage">
+    <part name="parameters" element="tns:deleteKonsultationsdatenAnfrage" />
+  </message>
+  <message name="deleteKonsultationsdatenAnfrageResponse">
+    <part name="parameters" element="tns:deleteKonsultationsdatenAnfrageResponse" />
+  </message>
+  <message name="deleteOfflineRecord">
+    <part name="parameters" element="tns:deleteOfflineRecord" />
+  </message>
+  <message name="deleteOfflineRecordResponse">
+    <part name="parameters" element="tns:deleteOfflineRecordResponse" />
+  </message>
+  <message name="doKonsultation">
+    <part name="parameters" element="tns:doKonsultation" />
+  </message>
+  <message name="doKonsultationOffline">
+    <part name="parameters" element="tns:doKonsultationOffline" />
+  </message>
+  <message name="doKonsultationOfflineResponse">
+    <part name="parameters" element="tns:doKonsultationOfflineResponse" />
+  </message>
+  <message name="doKonsultationResponse">
+    <part name="parameters" element="tns:doKonsultationResponse" />
+  </message>
+  <message name="downloadKonsultationsdaten">
+    <part name="parameters" element="tns:downloadKonsultationsdaten" />
+  </message>
+  <message name="downloadKonsultationsdatenResponse">
+    <part name="parameters" element="tns:downloadKonsultationsdatenResponse" />
+  </message>
+  <message name="getBehandlungsfaelle">
+    <part name="parameters" element="tns:getBehandlungsfaelle" />
+  </message>
+  <message name="getBehandlungsfaelleByFachgebiet">
+    <part name="parameters" element="tns:getBehandlungsfaelleByFachgebiet" />
+  </message>
+  <message name="getBehandlungsfaelleByFachgebietResponse">
+    <part name="parameters" element="tns:getBehandlungsfaelleByFachgebietResponse" />
+  </message>
+  <message name="getBehandlungsfaelleByFachgebietZusatz">
+    <part name="parameters" element="tns:getBehandlungsfaelleByFachgebietZusatz" />
+  </message>
+  <message name="getBehandlungsfaelleByFachgebietZusatzResponse">
+    <part name="parameters" element="tns:getBehandlungsfaelleByFachgebietZusatzResponse" />
+  </message>
+  <message name="getBehandlungsfaelleResponse">
+    <part name="parameters" element="tns:getBehandlungsfaelleResponse" />
+  </message>
+  <message name="getKonsultationsdaten">
+    <part name="parameters" element="tns:getKonsultationsdaten" />
+  </message>
+  <message name="getKonsultationsdatenAnfragen">
+    <part name="parameters" element="tns:getKonsultationsdatenAnfragen" />
+  </message>
+  <message name="getKonsultationsdatenAnfragenResponse">
+    <part name="parameters" element="tns:getKonsultationsdatenAnfragenResponse" />
+  </message>
+  <message name="getKonsultationsdatenResponse">
+    <part name="parameters" element="tns:getKonsultationsdatenResponse" />
+  </message>
+  <message name="getLimit">
+    <part name="parameters" element="tns:getLimit" />
+  </message>
+  <message name="getLimitResponse">
+    <part name="parameters" element="tns:getLimitResponse" />
+  </message>
+  <message name="getNumberOfflineKonsultationen">
+    <part name="parameters" element="tns:getNumberOfflineKonsultationen" />
+  </message>
+  <message name="getNumberOfflineKonsultationenResponse">
+    <part name="parameters" element="tns:getNumberOfflineKonsultationenResponse" />
+  </message>
+  <message name="getNumberOfflineNachsignaturen">
+    <part name="parameters" element="tns:getNumberOfflineNachsignaturen" />
+  </message>
+  <message name="getNumberOfflineNachsignaturenResponse">
+    <part name="parameters" element="tns:getNumberOfflineNachsignaturenResponse" />
+  </message>
+  <message name="getOfflineRecords">
+    <part name="parameters" element="tns:getOfflineRecords" />
+  </message>
+  <message name="getOfflineRecordsResponse">
+    <part name="parameters" element="tns:getOfflineRecordsResponse" />
+  </message>
+  <message name="nachsignierenKonsultationen">
+    <part name="parameters" element="tns:nachsignierenKonsultationen" />
+  </message>
+  <message name="nachsignierenKonsultationenOffline">
+    <part name="parameters" element="tns:nachsignierenKonsultationenOffline" />
+  </message>
+  <message name="nachsignierenKonsultationenOfflineResponse">
+    <part name="parameters" element="tns:nachsignierenKonsultationenOfflineResponse" />
+  </message>
+  <message name="nachsignierenKonsultationenResponse">
+    <part name="parameters" element="tns:nachsignierenKonsultationenResponse" />
+  </message>
+  <message name="sendKonsultationsdatenAnfrage">
+    <part name="parameters" element="tns:sendKonsultationsdatenAnfrage" />
+  </message>
+  <message name="sendKonsultationsdatenAnfrageResponse">
+    <part name="parameters" element="tns:sendKonsultationsdatenAnfrageResponse" />
+  </message>
+  <message name="sendOfflineKonsultation">
+    <part name="parameters" element="tns:sendOfflineKonsultation" />
+  </message>
+  <message name="sendOfflineKonsultationResponse">
+    <part name="parameters" element="tns:sendOfflineKonsultationResponse" />
+  </message>
+  <message name="sendOfflineNachsignatur">
+    <part name="parameters" element="tns:sendOfflineNachsignatur" />
+  </message>
+  <message name="sendOfflineNachsignaturResponse">
+    <part name="parameters" element="tns:sendOfflineNachsignaturResponse" />
+  </message>
+  <message name="sendZusatzinformationsAntwort">
+    <part name="parameters" element="tns:sendZusatzinformationsAntwort" />
+  </message>
+  <message name="sendZusatzinformationsAntwortResponse">
+    <part name="parameters" element="tns:sendZusatzinformationsAntwortResponse" />
+  </message>
+  <message name="stornierenKonsultation">
+    <part name="parameters" element="tns:stornierenKonsultation" />
+  </message>
+  <message name="stornierenKonsultationResponse">
+    <part name="parameters" element="tns:stornierenKonsultationResponse" />
+  </message>
+  <message name="wiederinkraftsetzenKonsultation">
+    <part name="parameters" element="tns:wiederinkraftsetzenKonsultation" />
+  </message>
+  <message name="wiederinkraftsetzenKonsultationResponse">
+    <part name="parameters" element="tns:wiederinkraftsetzenKonsultationResponse" />
+  </message>
+  <portType name="IKseService">
+    <operation name="getErstkonsultationen">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getErstkonsultationenRequest" message="tns:getErstkonsultationen" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getErstkonsultationenResponse" message="tns:getErstkonsultationenResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getErstkonsultationen/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getErstkonsultationen/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getErstkonsultationen/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getErstkonsultationen/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="aendernKonsultation">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/aendernKonsultationRequest" message="tns:aendernKonsultation" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/aendernKonsultationResponse" message="tns:aendernKonsultationResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/aendernKonsultation/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/aendernKonsultation/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/aendernKonsultation/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/aendernKonsultation/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/aendernKonsultation/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="checkStatus">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/checkStatusRequest" message="tns:checkStatus" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/checkStatusResponse" message="tns:checkStatusResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/checkStatus/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/checkStatus/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/checkStatus/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="deleteKonsultationsdatenAnfrage">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteKonsultationsdatenAnfrageRequest" message="tns:deleteKonsultationsdatenAnfrage" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteKonsultationsdatenAnfrageResponse" message="tns:deleteKonsultationsdatenAnfrageResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteKonsultationsdatenAnfrage/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteKonsultationsdatenAnfrage/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteKonsultationsdatenAnfrage/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteKonsultationsdatenAnfrage/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="deleteOfflineRecord">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteOfflineRecordRequest" message="tns:deleteOfflineRecord" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteOfflineRecordResponse" message="tns:deleteOfflineRecordResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteOfflineRecord/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteOfflineRecord/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteOfflineRecord/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteOfflineRecord/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/deleteOfflineRecord/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="doKonsultation">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultationRequest" message="tns:doKonsultation" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultationResponse" message="tns:doKonsultationResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultation/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultation/Fault/CardException" name="CardException" message="tns:CardException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultation/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultation/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultation/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultation/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="doKonsultationOffline">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultationOfflineRequest" message="tns:doKonsultationOffline" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultationOfflineResponse" message="tns:doKonsultationOfflineResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultationOffline/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultationOffline/Fault/CardException" name="CardException" message="tns:CardException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultationOffline/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultationOffline/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultationOffline/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/doKonsultationOffline/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="downloadKonsultationsdaten">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/downloadKonsultationsdatenRequest" message="tns:downloadKonsultationsdaten" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/downloadKonsultationsdatenResponse" message="tns:downloadKonsultationsdatenResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/downloadKonsultationsdaten/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/downloadKonsultationsdaten/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/downloadKonsultationsdaten/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/downloadKonsultationsdaten/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/downloadKonsultationsdaten/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getBehandlungsfaelle">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelleRequest" message="tns:getBehandlungsfaelle" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelleResponse" message="tns:getBehandlungsfaelleResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelle/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getBehandlungsfaelleByFachgebiet">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelleByFachgebietRequest" message="tns:getBehandlungsfaelleByFachgebiet" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelleByFachgebietResponse" message="tns:getBehandlungsfaelleByFachgebietResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelleByFachgebiet/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelleByFachgebiet/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getBehandlungsfaelleByFachgebietZusatz">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelleByFachgebietZusatzRequest" message="tns:getBehandlungsfaelleByFachgebietZusatz" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelleByFachgebietZusatzResponse" message="tns:getBehandlungsfaelleByFachgebietZusatzResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelleByFachgebietZusatz/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getBehandlungsfaelleByFachgebietZusatz/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getKonsultationsdaten">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdatenRequest" message="tns:getKonsultationsdaten" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdatenResponse" message="tns:getKonsultationsdatenResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdaten/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdaten/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdaten/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdaten/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdaten/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getKonsultationsdatenAnfragen">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdatenAnfragenRequest" message="tns:getKonsultationsdatenAnfragen" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdatenAnfragenResponse" message="tns:getKonsultationsdatenAnfragenResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdatenAnfragen/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdatenAnfragen/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getKonsultationsdatenAnfragen/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getLimit">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getLimitRequest" message="tns:getLimit" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getLimitResponse" message="tns:getLimitResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getLimit/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getLimit/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getLimit/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getLimit/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getNumberOfflineKonsultationen">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineKonsultationenRequest" message="tns:getNumberOfflineKonsultationen" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineKonsultationenResponse" message="tns:getNumberOfflineKonsultationenResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineKonsultationen/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineKonsultationen/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineKonsultationen/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineKonsultationen/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getNumberOfflineNachsignaturen">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineNachsignaturenRequest" message="tns:getNumberOfflineNachsignaturen" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineNachsignaturenResponse" message="tns:getNumberOfflineNachsignaturenResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineNachsignaturen/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineNachsignaturen/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineNachsignaturen/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getNumberOfflineNachsignaturen/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getOfflineRecords">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getOfflineRecordsRequest" message="tns:getOfflineRecords" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getOfflineRecordsResponse" message="tns:getOfflineRecordsResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getOfflineRecords/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getOfflineRecords/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getOfflineRecords/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/getOfflineRecords/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="nachsignierenKonsultationen">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationenRequest" message="tns:nachsignierenKonsultationen" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationenResponse" message="tns:nachsignierenKonsultationenResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationen/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationen/Fault/CardException" name="CardException" message="tns:CardException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationen/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationen/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationen/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="nachsignierenKonsultationenOffline">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationenOfflineRequest" message="tns:nachsignierenKonsultationenOffline" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationenOfflineResponse" message="tns:nachsignierenKonsultationenOfflineResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationenOffline/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationenOffline/Fault/CardException" name="CardException" message="tns:CardException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationenOffline/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationenOffline/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/nachsignierenKonsultationenOffline/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="sendKonsultationsdatenAnfrage">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendKonsultationsdatenAnfrageRequest" message="tns:sendKonsultationsdatenAnfrage" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendKonsultationsdatenAnfrageResponse" message="tns:sendKonsultationsdatenAnfrageResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendKonsultationsdatenAnfrage/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendKonsultationsdatenAnfrage/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendKonsultationsdatenAnfrage/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendKonsultationsdatenAnfrage/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendKonsultationsdatenAnfrage/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="sendOfflineKonsultation">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineKonsultationRequest" message="tns:sendOfflineKonsultation" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineKonsultationResponse" message="tns:sendOfflineKonsultationResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineKonsultation/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineKonsultation/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineKonsultation/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineKonsultation/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineKonsultation/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="sendOfflineNachsignatur">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineNachsignaturRequest" message="tns:sendOfflineNachsignatur" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineNachsignaturResponse" message="tns:sendOfflineNachsignaturResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineNachsignatur/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineNachsignatur/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineNachsignatur/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineNachsignatur/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendOfflineNachsignatur/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="sendZusatzinformationsAntwort">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendZusatzinformationsAntwortRequest" message="tns:sendZusatzinformationsAntwort" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendZusatzinformationsAntwortResponse" message="tns:sendZusatzinformationsAntwortResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendZusatzinformationsAntwort/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendZusatzinformationsAntwort/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendZusatzinformationsAntwort/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendZusatzinformationsAntwort/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/sendZusatzinformationsAntwort/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="stornierenKonsultation">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/stornierenKonsultationRequest" message="tns:stornierenKonsultation" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/stornierenKonsultationResponse" message="tns:stornierenKonsultationResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/stornierenKonsultation/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/stornierenKonsultation/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/stornierenKonsultation/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/stornierenKonsultation/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/stornierenKonsultation/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="wiederinkraftsetzenKonsultation">
+      <input wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/wiederinkraftsetzenKonsultationRequest" message="tns:wiederinkraftsetzenKonsultation" />
+      <output wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/wiederinkraftsetzenKonsultationResponse" message="tns:wiederinkraftsetzenKonsultationResponse" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/wiederinkraftsetzenKonsultation/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/wiederinkraftsetzenKonsultation/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/wiederinkraftsetzenKonsultation/Fault/InvalidParameterException" name="InvalidParameterException" message="tns:InvalidParameterException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/wiederinkraftsetzenKonsultation/Fault/KseException" name="KseException" message="tns:KseException" />
+      <fault wsam:Action="http://soap.kse.client.chipkarte.at/IKseService/wiederinkraftsetzenKonsultation/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+  </portType>
+  <binding name="kse_17Binding" type="tns:IKseService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="getErstkonsultationen">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="aendernKonsultation">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="checkStatus">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="deleteKonsultationsdatenAnfrage">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="deleteOfflineRecord">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="doKonsultation">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="CardException">
+        <soap:fault use="literal" name="CardException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="doKonsultationOffline">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="CardException">
+        <soap:fault use="literal" name="CardException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="downloadKonsultationsdaten">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getBehandlungsfaelle">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getBehandlungsfaelleByFachgebiet">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getBehandlungsfaelleByFachgebietZusatz">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getKonsultationsdaten">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getKonsultationsdatenAnfragen">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getLimit">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getNumberOfflineKonsultationen">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getNumberOfflineNachsignaturen">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getOfflineRecords">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="nachsignierenKonsultationen">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="CardException">
+        <soap:fault use="literal" name="CardException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="nachsignierenKonsultationenOffline">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="CardException">
+        <soap:fault use="literal" name="CardException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="sendKonsultationsdatenAnfrage">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="sendOfflineKonsultation">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="sendOfflineNachsignatur">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="sendZusatzinformationsAntwort">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="stornierenKonsultation">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="wiederinkraftsetzenKonsultation">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterException">
+        <soap:fault use="literal" name="InvalidParameterException" namespace="" />
+      </fault>
+      <fault name="KseException">
+        <soap:fault use="literal" name="KseException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="KseService">
+    <port name="kse_17" binding="tns:kse_17Binding">
+      <soap:address location="http://localhost/kse/17" />
+    </port>
+  </service>
+</definitions>
