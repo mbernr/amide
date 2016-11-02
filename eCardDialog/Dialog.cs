@@ -19,7 +19,7 @@ namespace eCardDialog
         private ordination[] ordinationen;
         taetigkeitsBereich bereich;
 
-        public String getDialogID()
+        public String createDialog()
         {
             baseService = new BaseService();
             baseService.Url = "https://10.196.4.114/base/15";
@@ -31,6 +31,11 @@ namespace eCardDialog
             myInfo.produktIdSpecified = true;
             myCard = baseService.getCardData(reader.id);
             return baseService.createDialog(reader.id, myInfo, null, true, true);
+        }
+
+        public String getDialogId()
+        {
+            return this.dialogId;
         }
 
         public void getVertragspartner()
@@ -62,9 +67,9 @@ namespace eCardDialog
             return this.ordinationen;
         }
 
-        public void createDialog()
+        public void createAndAuthenticateDialog()
         {
-            dialogId = getDialogID();   //createDialog
+            this.dialogId = createDialog();   //createDialog
             getVertragspartner();	    //authenticateDialog
             setOrdination();
             setTaetigkeitsbereich();
@@ -87,7 +92,12 @@ namespace eCardDialog
             return this.baseService;
         }
 
+        ~Dialog()
+        {
+            this.baseService.closeDialog(this.dialogId);
+        }
 
-        
+
+
     }
 }

@@ -21,7 +21,7 @@ namespace eCardDialog
         private void createDialog_Click(object sender, EventArgs e)
         {
             Dialog d = new Dialog();
-            d.createDialog();
+            d.createAndAuthenticateDialog();
             this.Hide();
             NeuerPatientWindow form2 = new NeuerPatientWindow(d);
             form2.Show();

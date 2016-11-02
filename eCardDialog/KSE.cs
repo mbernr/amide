@@ -17,7 +17,7 @@ namespace eCardDialog
         {
             InitializeComponent();
 
-            baseProperty[] prop = d.getBaseService().getFachgebieteByOrdId(d.getDialogID(), d.getOrdination()[0].ordinationId, d.getBereich().id);
+            baseProperty[] prop = d.getBaseService().getFachgebieteByOrdId(d.getDialogId(), d.getOrdination()[0].ordinationId, d.getBereich().id);
             Console.WriteLine("getFachgebieteByOrdId funktioniert");
             //Console.ReadLine();
 /*
@@ -36,7 +36,7 @@ namespace eCardDialog
 
             KSERef.ergebnisKonsultation ergebnisKonstultation = kseService.doKonsultation(eCard.cin, d.getDialogID(), eCard.nummer, svtProp[0].code, null, prop[0].code, behandlungsfallCode[0].code, null, null, true, true, d.getReader().id);
             */
-            d.getBaseService().closeDialog(d.getDialogID());
+            d.getBaseService().closeDialog(d.createDialog());
             
         }
     }

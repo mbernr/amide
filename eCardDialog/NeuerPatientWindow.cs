@@ -27,9 +27,6 @@ namespace eCardDialog
             String  readerID = d.getReader().id;
             this.eCard = d.getBaseService().getCardData(readerID);
             Nachname.Text = eCard.nachname;
-            baseProperty[] prop = d.getBaseService().getFachgebieteByOrdId(d.getDialogID(), d.getOrdination()[0].ordinationId, d.getBereich().id);
-
-
         }
 
         private void KSE_Click(object sender, EventArgs e)
