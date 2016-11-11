@@ -14,5 +14,8 @@
     <Setting Name="eCardDialog_KSERef_KseService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://localhost/kse/17</Value>
     </Setting>
+    <Setting Name="eCardDialog_SasRef_SasService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost/sas/12</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

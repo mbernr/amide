@@ -62,5 +62,15 @@ namespace eCardDialog.Properties {
                 return ((string)(this["eCardDialog_KSERef_KseService"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/sas/12")]
+        public string eCardDialog_SasRef_SasService {
+            get {
+                return ((string)(this["eCardDialog_SasRef_SasService"]));
+            }
+        }
     }
 }
