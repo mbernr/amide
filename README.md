@@ -1,3 +1,3 @@
 # amide
 Commit message format:
-<SERVICE>: <message>
+\<SERVICE\>: \<message\>
