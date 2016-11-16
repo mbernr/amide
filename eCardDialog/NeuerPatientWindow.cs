@@ -34,5 +34,11 @@ namespace eCardDialog
             KSE kseWindow = new KSE(d, eCard);
             kseWindow.Show();
         }
+
+        private void btn_SAS_Click(object sender, EventArgs e)
+        {
+            SASWindow sasWindow = new SASWindow(d);
+            sasWindow.Show();
+        }
     }
 }

@@ -31,6 +31,7 @@
             this.neuerPatient = new System.Windows.Forms.Button();
             this.Nachname = new System.Windows.Forms.Label();
             this.KSE = new System.Windows.Forms.Button();
+            this.btn_SAS = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // neuerPatient
@@ -62,11 +63,22 @@
             this.KSE.UseVisualStyleBackColor = true;
             this.KSE.Click += new System.EventHandler(this.KSE_Click);
             // 
+            // btn_SAS
+            // 
+            this.btn_SAS.Location = new System.Drawing.Point(112, 136);
+            this.btn_SAS.Name = "btn_SAS";
+            this.btn_SAS.Size = new System.Drawing.Size(80, 23);
+            this.btn_SAS.TabIndex = 4;
+            this.btn_SAS.Text = "SAS";
+            this.btn_SAS.UseVisualStyleBackColor = true;
+            this.btn_SAS.Click += new System.EventHandler(this.btn_SAS_Click);
+            // 
             // NeuerPatientWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.btn_SAS);
             this.Controls.Add(this.KSE);
             this.Controls.Add(this.Nachname);
             this.Controls.Add(this.neuerPatient);
@@ -82,5 +94,6 @@
         private System.Windows.Forms.Button neuerPatient;
         private System.Windows.Forms.Label Nachname;
         private System.Windows.Forms.Button KSE;
+        private System.Windows.Forms.Button btn_SAS;
     }
 }

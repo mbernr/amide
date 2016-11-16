@@ -73,6 +73,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SASWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SASWindow.Designer.cs">
+      <DependentUpon>SASWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="VDASAbfrage.cs" />
     <Compile Include="Web References\BaseRef\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -84,6 +90,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\SasRef\Reference.cs" />
     <Compile Include="Web References\ServiceManager\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -180,6 +187,11 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Web References\SasRef\abfrageErgebnis.datasource" />
+    <None Include="Web References\SasRef\adressdaten.datasource" />
+    <None Include="Web References\SasRef\property.datasource" />
+    <None Include="Web References\SasRef\Reference.map" />
+    <None Include="Web References\SasRef\SasService.wsdl" />
     <None Include="Web References\ServiceManager\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -261,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NeuerPatientWindow.resx">
       <DependentUpon>NeuerPatientWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SASWindow.resx">
+      <DependentUpon>SASWindow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,22 +9,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace eCardDialog
 {
     public partial class SASWindow : Form
     {
-        public SASWindow(Dialog d, card eCard)
+        SasRef.SasService sasService = new SasRef.SasService();
+        Dialog d;
+        public SASWindow(Dialog d)
         {
-            InitializeComponent();
-            SasRef.SasService sasService = new SasRef.SasService();
+            this.d = d;
+            InitializeComponent();     
             sasService.Url = "https://10.196.4.114/sas/12";
+        }
+
+
+        private void btn_personendatenAbfragen_Click(object sender, EventArgs e)
+        {//1000251170
+            abfrageErgebnis ergebnis = sasService.patientendatenAbfragen(d.getDialogId(), txt_svn.Text);
+            l_nachname.Text = ergebnis.familienname;
+            l_vorname.Text = ergebnis.vorname;
+            l_gebdatum.Text = ergebnis.geburtsdatum;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
             suchkriterien kriterien = new suchkriterien();
-            kriterien.familienname = "Musterpatient";
-            kriterien.vorname = "Max";
-            kriterien.geburtsdatum = "25.11.1970";
-            abfrageErgebnis ergebnis  = sasService.svNummerAbfragen(d.getDialogId(), kriterien);
-            
+            kriterien.familienname = txt_nn.Text;
+            kriterien.vorname = txt_vn.Text;
+            kriterien.geburtsdatum = txt_gebdat.Text;
+            abfrageErgebnis ergebnis = sasService.svNummerAbfragen(d.getDialogId(), kriterien);
+            l_svn.Text = ergebnis.svNummer;
         }
     }
 }
