@@ -34,5 +34,13 @@ namespace eCardDialog
             KSE kseWindow = new KSE(d, eCard);
             kseWindow.Show();
         }
+
+        private void ABS_Click(object sender, EventArgs e)
+        {
+            ABSWindow absWindow = new ABSWindow(d, eCard);
+            absWindow.Show();
+        }
+
+
     }
 }
