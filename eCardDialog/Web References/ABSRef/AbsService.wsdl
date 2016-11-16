@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://soap.abs.client.chipkarte.at" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="AbsService" targetNamespace="http://soap.abs.client.chipkarte.at" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema xmlns:tns="http://exceptions.soap.abs.client.chipkarte.at" xmlns:abs="http://soap.abs.client.chipkarte.at" xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" elementFormDefault="qualified" targetNamespace="http://exceptions.soap.abs.client.chipkarte.at" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://exceptions.soap.base.client.chipkarte.at" />
+      <xs:import namespace="http://soap.abs.client.chipkarte.at" />
+      <xs:element name="AbsException" type="tns:absExceptionContent" />
+      <xs:element name="InvalidParameterBewilligungsanfrageException" type="tns:invalidParameterBewilligungsanfrageExceptionContent" />
+      <xs:element name="InvalidParameterGetAnfrageStatusException" type="tns:invalidParameterGetAnfrageStatusExceptionContent" />
+      <xs:element name="InvalidParameterRueckantwortException" type="tns:invalidParameterRueckantwortExceptionContent" />
+      <xs:complexType name="absExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="baseexc:baseExceptionContent">
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="KVTCodes" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="patientenDaten" type="abs:patientenDaten" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="invalidParameterBewilligungsanfrageExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="baseexc:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="invalidParameterGetAnfrageStatusExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="baseexc:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="invalidParameterRueckantwortExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="baseexc:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://exceptions.soap.base.client.chipkarte.at" elementFormDefault="qualified" targetNamespace="http://exceptions.soap.base.client.chipkarte.at" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="AccessException" type="tns:accessExceptionContent" />
+      <xs:element name="CardException" type="tns:cardExceptionContent" />
+      <xs:element name="DialogException" type="tns:dialogExceptionContent" />
+      <xs:element name="ServiceException" type="tns:serviceExceptionContent" />
+      <xs:complexType name="accessExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="baseExceptionContent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="errorCode" type="xs:int" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="cardExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="dialogExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="serviceExceptionContent">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseExceptionContent">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:absexc="http://exceptions.soap.abs.client.chipkarte.at" xmlns:base="http://soap.base.client.chipkarte.at" xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" elementFormDefault="qualified" targetNamespace="http://soap.abs.client.chipkarte.at" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://soap.base.client.chipkarte.at" />
+      <xs:import schemaLocation="http://10.196.4.114/abs/11?xsd=http://www.w3.org/2005/05/xmlmime" namespace="http://www.w3.org/2005/05/xmlmime" />
+      <xs:element name="abfragenLangzeitbewilligung" type="tns:abfragenLangzeitbewilligung" />
+      <xs:element name="abfragenLangzeitbewilligungResponse" type="tns:abfragenLangzeitbewilligungResponse" />
+      <xs:element name="checkStatus" type="tns:checkStatus" />
+      <xs:element name="checkStatusResponse" type="tns:checkStatusResponse" />
+      <xs:element name="ermittelnPatientenDaten" type="tns:ermittelnPatientenDaten" />
+      <xs:element name="ermittelnPatientenDatenResponse" type="tns:ermittelnPatientenDatenResponse" />
+      <xs:element name="getRueckantwort" type="tns:getRueckantwort" />
+      <xs:element name="getRueckantwortResponse" type="tns:getRueckantwortResponse" />
+      <xs:element name="getSVTs" type="tns:getSVTs" />
+      <xs:element name="getSVTsResponse" type="tns:getSVTsResponse" />
+      <xs:element name="getStatusBewilligungsAnfragen" type="tns:getStatusBewilligungsAnfragen" />
+      <xs:element name="getStatusBewilligungsAnfragenResponse" type="tns:getStatusBewilligungsAnfragenResponse" />
+      <xs:element name="getStatusPatientBewilligungsAnfragen" type="tns:getStatusPatientBewilligungsAnfragen" />
+      <xs:element name="getStatusPatientBewilligungsAnfragenResponse" type="tns:getStatusPatientBewilligungsAnfragenResponse" />
+      <xs:element name="sendenAnfrage" type="tns:sendenAnfrage" />
+      <xs:element name="sendenAnfrageResponse" type="tns:sendenAnfrageResponse" />
+      <xs:element name="sendenFolgeverordnung" type="tns:sendenFolgeverordnung" />
+      <xs:element name="sendenFolgeverordnungResponse" type="tns:sendenFolgeverordnungResponse" />
+      <xs:complexType name="abfragenLangzeitbewilligung">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="sVNRPatient" type="xs:string" />
+          <xs:element minOccurs="0" name="cardReaderId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="abfragenLangzeitbewilligungResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:langzeitbewilligungsAbfrageErgebnis" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="anfrageAntwort">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="bearbeitungNaechsterWerktag" type="xs:boolean" />
+          <xs:element minOccurs="0" name="id" type="xs:string" />
+          <xs:element minOccurs="0" name="patientenDaten" type="tns:patientenDaten" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="anfrageEntscheid">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="beantragtePackungsanzahl" type="xs:int" />
+          <xs:element minOccurs="0" name="beantragtesMedikament" type="tns:medikament" />
+          <xs:element minOccurs="0" name="bewilligtePackungsanzahl" type="xs:int" />
+          <xs:element minOccurs="0" name="bewilligtesMedikament" type="tns:medikament" />
+          <xs:element minOccurs="0" name="infoText" type="xs:string" />
+          <xs:element minOccurs="0" name="langzeitVerordnung" type="tns:langzeitVerordnung" />
+          <xs:element minOccurs="0" name="magistraleZubereitung" type="xs:string" />
+          <xs:element minOccurs="0" name="verordnungsEntscheidung" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="bewilligungsAnfrage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="antragstyp" type="xs:string" />
+          <xs:element minOccurs="0" name="patientenDaten" type="tns:patientenDaten" />
+          <xs:element minOccurs="0" name="verordnerinformation" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="verordnungen" nillable="true" type="tns:verordnung" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkStatus">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkStatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="base:property" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ermittelnPatientenDaten">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="svNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="svtCode" type="xs:string" />
+          <xs:element minOccurs="0" name="ekvkNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="geschlecht" type="xs:string" />
+          <xs:element minOccurs="0" name="nachname" type="xs:string" />
+          <xs:element minOccurs="0" name="vorname" type="xs:string" />
+          <xs:element minOccurs="0" name="antragstyp" type="xs:string" />
+          <xs:element minOccurs="0" name="cardReaderId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ermittelnPatientenDatenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:bewilligungsAnfrage" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="filterKriterien">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="anfrageStatus" type="xs:string" />
+          <xs:element minOccurs="0" name="datumBis" type="xs:string" />
+          <xs:element minOccurs="0" name="datumVon" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="folgeverordnungsAusstellungsErgebnis">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="bewilligteAbgabemenge" type="xs:int" />
+          <xs:element minOccurs="0" name="druckNachnamePatient" type="xs:string" />
+          <xs:element minOccurs="0" name="druckVornamePatient" type="xs:string" />
+          <xs:element minOccurs="0" name="medikamentName" type="xs:string" />
+          <xs:element minOccurs="0" name="nachnamePatient" type="xs:string" />
+          <xs:element minOccurs="0" name="pharmanummer" type="xs:string" />
+          <xs:element minOccurs="0" name="referenzNr" type="xs:string" />
+          <xs:element minOccurs="0" name="rezeptGebBefreit" type="xs:boolean" />
+          <xs:element minOccurs="0" name="SVNRPatient" type="xs:string" />
+          <xs:element minOccurs="0" name="SVTCode" type="xs:string" />
+          <xs:element minOccurs="0" name="vornamePatient" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="folgeverordnungsAusstellungsParameter">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="SVNRPatient" type="xs:string" />
+          <xs:element minOccurs="0" name="SVTCode" type="xs:string" />
+          <xs:element minOccurs="0" name="beantragteAbgabemenge" type="xs:int" />
+          <xs:element minOccurs="0" name="medikamentName" type="xs:string" />
+          <xs:element minOccurs="0" name="pharmanummer" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getRueckantwort">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="anfrageId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getRueckantwortResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:rueckantwort" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSVTs">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="getSVTsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="base:svtProperty" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getStatusBewilligungsAnfragen">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="filterkriterien" type="tns:filterKriterien" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getStatusBewilligungsAnfragenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:statusBewilligungsAnfrage" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getStatusPatientBewilligungsAnfragen">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="svNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="nachname" type="xs:string" />
+          <xs:element minOccurs="0" name="vorname" type="xs:string" />
+          <xs:element minOccurs="0" name="cardReaderId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getStatusPatientBewilligungsAnfragenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:statusBewilligungsAnfrage" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="langzeitVerordnung">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="beantragteMonate" type="xs:int" />
+          <xs:element minOccurs="0" name="bewilligteMonate" type="xs:int" />
+          <xs:element minOccurs="0" name="bewilligtePackungen" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="langzeitbewilligungsAbfrageErgebnis">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="abgabeMoeglich" type="xs:boolean" />
+          <xs:element minOccurs="0" name="bewilligteAbgabemenge" type="xs:int" />
+          <xs:element minOccurs="0" name="datumGueltigBis" type="xs:string" />
+          <xs:element minOccurs="0" name="datumNaechstMoeglicheFolgeverordnung" type="xs:string" />
+          <xs:element minOccurs="0" name="dosierung" type="xs:string" />
+          <xs:element minOccurs="0" name="druckNachnamePatient" type="xs:string" />
+          <xs:element minOccurs="0" name="druckVornamePatient" type="xs:string" />
+          <xs:element minOccurs="0" name="heuteBereitsVerordnet" type="xs:boolean" />
+          <xs:element minOccurs="0" name="heuteBereitsVerordneteMenge" type="xs:int" />
+          <xs:element minOccurs="0" name="maximaleAbgabemenge" type="xs:int" />
+          <xs:element minOccurs="0" name="medikamentName" type="xs:string" />
+          <xs:element minOccurs="0" name="monatsBedarf" type="xs:int" />
+          <xs:element minOccurs="0" name="nachnamePatient" type="xs:string" />
+          <xs:element minOccurs="0" name="offeneAbgabemenge" type="xs:int" />
+          <xs:element minOccurs="0" name="pharmanummer" type="xs:string" />
+          <xs:element minOccurs="0" name="SVNRPatient" type="xs:string" />
+          <xs:element minOccurs="0" name="vornamePatient" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="medikament">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element minOccurs="0" name="pharmanummer" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="patientenDaten">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="druckNachname" type="xs:string" />
+          <xs:element minOccurs="0" name="druckVorname" type="xs:string" />
+          <xs:element minOccurs="0" name="EKVKNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="geschlecht" type="xs:string" />
+          <xs:element minOccurs="0" name="nachname" type="xs:string" />
+          <xs:element minOccurs="0" name="rezeptGebBefreit" type="xs:boolean" />
+          <xs:element minOccurs="0" name="SVNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="SVTCode" type="xs:string" />
+          <xs:element minOccurs="0" name="vorname" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="rueckantwort">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="abfrageZeitpunkt" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="anfrageEntscheide" nillable="true" type="tns:anfrageEntscheid" />
+          <xs:element minOccurs="0" name="anfrageId" type="xs:string" />
+          <xs:element minOccurs="0" name="antragstyp" type="xs:string" />
+          <xs:element minOccurs="0" name="beantwortungsZeitpunkt" type="xs:string" />
+          <xs:element minOccurs="0" name="bewilligungsAnfrage" type="tns:bewilligungsAnfrage" />
+          <xs:element minOccurs="0" name="EKVKPatient" type="xs:string" />
+          <xs:element minOccurs="0" name="einlangeZeitpunkt" type="xs:string" />
+          <xs:element minOccurs="0" name="infoText" type="xs:string" />
+          <xs:element minOccurs="0" name="nachnamePatient" type="xs:string" />
+          <xs:element minOccurs="0" name="referenzId" type="xs:string" />
+          <xs:element minOccurs="0" name="SVNRPatient" type="xs:string" />
+          <xs:element minOccurs="0" name="vornamePatient" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendenAnfrage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="anfrage" type="tns:bewilligungsAnfrage" />
+          <xs:element minOccurs="0" name="cardReaderId" type="xs:string" />
+          <xs:element xmime:expectedContentTypes="application/octet-stream" minOccurs="0" name="attachment" type="xs:base64Binary" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendenAnfrageResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:anfrageAntwort" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendenFolgeverordnung">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dialogId" type="xs:string" />
+          <xs:element minOccurs="0" name="ausstellungsParameter" type="tns:folgeverordnungsAusstellungsParameter" />
+          <xs:element minOccurs="0" name="cardReaderId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendenFolgeverordnungResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:folgeverordnungsAusstellungsErgebnis" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="statusBewilligungsAnfrage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="abfrageZeitpunkt" type="xs:string" />
+          <xs:element minOccurs="0" name="anfrageId" type="xs:string" />
+          <xs:element minOccurs="0" name="beantwortungsZeitpunkt" type="xs:string" />
+          <xs:element minOccurs="0" name="EKVKNummer" type="xs:string" />
+          <xs:element minOccurs="0" name="einlangeZeitpunkt" type="xs:string" />
+          <xs:element minOccurs="0" name="nachnamePatient" type="xs:string" />
+          <xs:element minOccurs="0" name="SVNRPatient" type="xs:string" />
+          <xs:element minOccurs="0" name="vornamePatient" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="verordnung">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="begruendung" type="xs:string" />
+          <xs:element minOccurs="0" name="diagnose" type="xs:string" />
+          <xs:element minOccurs="0" name="dosierung" type="xs:string" />
+          <xs:element minOccurs="0" name="langzeitverordnung" type="xs:string" />
+          <xs:element minOccurs="0" name="magistraleZubereitung" type="xs:string" />
+          <xs:element minOccurs="0" name="medikament" type="tns:medikament" />
+          <xs:element minOccurs="0" name="packungsanzahl" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://soap.base.client.chipkarte.at" xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" elementFormDefault="qualified" targetNamespace="http://soap.base.client.chipkarte.at" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="baseProperty">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="nurAnzeige" type="xs:boolean" />
+          <xs:element minOccurs="0" name="text" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="property">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="key" type="xs:string" />
+          <xs:element minOccurs="0" name="value" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="svtProperty">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseProperty">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="ASVG" type="xs:boolean" />
+              <xs:element minOccurs="0" name="EKVKCode" type="xs:string" />
+              <xs:element minOccurs="0" name="EKVKName" type="xs:string" />
+              <xs:element minOccurs="0" name="kurzbezeichnung" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+    </xs:schema>
+  </types>
+  <message name="AbsException">
+    <part xmlns:absexc="http://exceptions.soap.abs.client.chipkarte.at" name="fault" element="absexc:AbsException" />
+  </message>
+  <message name="AccessException">
+    <part xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" name="fault" element="baseexc:AccessException" />
+  </message>
+  <message name="CardException">
+    <part xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" name="fault" element="baseexc:CardException" />
+  </message>
+  <message name="DialogException">
+    <part xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" name="fault" element="baseexc:DialogException" />
+  </message>
+  <message name="InvalidParameterBewilligungsanfrageException">
+    <part xmlns:absexc="http://exceptions.soap.abs.client.chipkarte.at" name="fault" element="absexc:InvalidParameterBewilligungsanfrageException" />
+  </message>
+  <message name="InvalidParameterGetAnfrageStatusException">
+    <part xmlns:absexc="http://exceptions.soap.abs.client.chipkarte.at" name="fault" element="absexc:InvalidParameterGetAnfrageStatusException" />
+  </message>
+  <message name="InvalidParameterRueckantwortException">
+    <part xmlns:absexc="http://exceptions.soap.abs.client.chipkarte.at" name="fault" element="absexc:InvalidParameterRueckantwortException" />
+  </message>
+  <message name="ServiceException">
+    <part xmlns:baseexc="http://exceptions.soap.base.client.chipkarte.at" name="fault" element="baseexc:ServiceException" />
+  </message>
+  <message name="abfragenLangzeitbewilligung">
+    <part name="parameters" element="tns:abfragenLangzeitbewilligung" />
+  </message>
+  <message name="abfragenLangzeitbewilligungResponse">
+    <part name="parameters" element="tns:abfragenLangzeitbewilligungResponse" />
+  </message>
+  <message name="checkStatus">
+    <part name="parameters" element="tns:checkStatus" />
+  </message>
+  <message name="checkStatusResponse">
+    <part name="parameters" element="tns:checkStatusResponse" />
+  </message>
+  <message name="ermittelnPatientenDaten">
+    <part name="parameters" element="tns:ermittelnPatientenDaten" />
+  </message>
+  <message name="ermittelnPatientenDatenResponse">
+    <part name="parameters" element="tns:ermittelnPatientenDatenResponse" />
+  </message>
+  <message name="getRueckantwort">
+    <part name="parameters" element="tns:getRueckantwort" />
+  </message>
+  <message name="getRueckantwortResponse">
+    <part name="parameters" element="tns:getRueckantwortResponse" />
+  </message>
+  <message name="getSVTs">
+    <part name="parameters" element="tns:getSVTs" />
+  </message>
+  <message name="getSVTsResponse">
+    <part name="parameters" element="tns:getSVTsResponse" />
+  </message>
+  <message name="getStatusBewilligungsAnfragen">
+    <part name="parameters" element="tns:getStatusBewilligungsAnfragen" />
+  </message>
+  <message name="getStatusBewilligungsAnfragenResponse">
+    <part name="parameters" element="tns:getStatusBewilligungsAnfragenResponse" />
+  </message>
+  <message name="getStatusPatientBewilligungsAnfragen">
+    <part name="parameters" element="tns:getStatusPatientBewilligungsAnfragen" />
+  </message>
+  <message name="getStatusPatientBewilligungsAnfragenResponse">
+    <part name="parameters" element="tns:getStatusPatientBewilligungsAnfragenResponse" />
+  </message>
+  <message name="sendenAnfrage">
+    <part name="parameters" element="tns:sendenAnfrage" />
+  </message>
+  <message name="sendenAnfrageResponse">
+    <part name="parameters" element="tns:sendenAnfrageResponse" />
+  </message>
+  <message name="sendenFolgeverordnung">
+    <part name="parameters" element="tns:sendenFolgeverordnung" />
+  </message>
+  <message name="sendenFolgeverordnungResponse">
+    <part name="parameters" element="tns:sendenFolgeverordnungResponse" />
+  </message>
+  <portType name="IAbsService">
+    <operation name="abfragenLangzeitbewilligung">
+      <input wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/abfragenLangzeitbewilligungRequest" message="tns:abfragenLangzeitbewilligung" />
+      <output wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/abfragenLangzeitbewilligungResponse" message="tns:abfragenLangzeitbewilligungResponse" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/abfragenLangzeitbewilligung/Fault/AbsException" name="AbsException" message="tns:AbsException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/abfragenLangzeitbewilligung/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/abfragenLangzeitbewilligung/Fault/CardException" name="CardException" message="tns:CardException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/abfragenLangzeitbewilligung/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/abfragenLangzeitbewilligung/Fault/InvalidParameterBewilligungsanfrageException" name="InvalidParameterBewilligungsanfrageException" message="tns:InvalidParameterBewilligungsanfrageException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/abfragenLangzeitbewilligung/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="checkStatus">
+      <input wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/checkStatusRequest" message="tns:checkStatus" />
+      <output wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/checkStatusResponse" message="tns:checkStatusResponse" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/checkStatus/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/checkStatus/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/checkStatus/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="ermittelnPatientenDaten">
+      <input wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/ermittelnPatientenDatenRequest" message="tns:ermittelnPatientenDaten" />
+      <output wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/ermittelnPatientenDatenResponse" message="tns:ermittelnPatientenDatenResponse" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/ermittelnPatientenDaten/Fault/AbsException" name="AbsException" message="tns:AbsException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/ermittelnPatientenDaten/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/ermittelnPatientenDaten/Fault/CardException" name="CardException" message="tns:CardException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/ermittelnPatientenDaten/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/ermittelnPatientenDaten/Fault/InvalidParameterBewilligungsanfrageException" name="InvalidParameterBewilligungsanfrageException" message="tns:InvalidParameterBewilligungsanfrageException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/ermittelnPatientenDaten/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getRueckantwort">
+      <input wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getRueckantwortRequest" message="tns:getRueckantwort" />
+      <output wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getRueckantwortResponse" message="tns:getRueckantwortResponse" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getRueckantwort/Fault/AbsException" name="AbsException" message="tns:AbsException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getRueckantwort/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getRueckantwort/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getRueckantwort/Fault/InvalidParameterRueckantwortException" name="InvalidParameterRueckantwortException" message="tns:InvalidParameterRueckantwortException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getRueckantwort/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getSVTs">
+      <input wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getSVTsRequest" message="tns:getSVTs" />
+      <output wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getSVTsResponse" message="tns:getSVTsResponse" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getSVTs/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getStatusBewilligungsAnfragen">
+      <input wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusBewilligungsAnfragenRequest" message="tns:getStatusBewilligungsAnfragen" />
+      <output wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusBewilligungsAnfragenResponse" message="tns:getStatusBewilligungsAnfragenResponse" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusBewilligungsAnfragen/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusBewilligungsAnfragen/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusBewilligungsAnfragen/Fault/InvalidParameterGetAnfrageStatusException" name="InvalidParameterGetAnfrageStatusException" message="tns:InvalidParameterGetAnfrageStatusException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusBewilligungsAnfragen/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="getStatusPatientBewilligungsAnfragen">
+      <input wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusPatientBewilligungsAnfragenRequest" message="tns:getStatusPatientBewilligungsAnfragen" />
+      <output wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusPatientBewilligungsAnfragenResponse" message="tns:getStatusPatientBewilligungsAnfragenResponse" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusPatientBewilligungsAnfragen/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusPatientBewilligungsAnfragen/Fault/CardException" name="CardException" message="tns:CardException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusPatientBewilligungsAnfragen/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusPatientBewilligungsAnfragen/Fault/InvalidParameterBewilligungsanfrageException" name="InvalidParameterBewilligungsanfrageException" message="tns:InvalidParameterBewilligungsanfrageException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusPatientBewilligungsAnfragen/Fault/InvalidParameterGetAnfrageStatusException" name="InvalidParameterGetAnfrageStatusException" message="tns:InvalidParameterGetAnfrageStatusException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/getStatusPatientBewilligungsAnfragen/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="sendenAnfrage">
+      <input wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenAnfrageRequest" message="tns:sendenAnfrage" />
+      <output wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenAnfrageResponse" message="tns:sendenAnfrageResponse" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenAnfrage/Fault/AbsException" name="AbsException" message="tns:AbsException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenAnfrage/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenAnfrage/Fault/CardException" name="CardException" message="tns:CardException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenAnfrage/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenAnfrage/Fault/InvalidParameterBewilligungsanfrageException" name="InvalidParameterBewilligungsanfrageException" message="tns:InvalidParameterBewilligungsanfrageException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenAnfrage/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+    <operation name="sendenFolgeverordnung">
+      <input wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenFolgeverordnungRequest" message="tns:sendenFolgeverordnung" />
+      <output wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenFolgeverordnungResponse" message="tns:sendenFolgeverordnungResponse" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenFolgeverordnung/Fault/AbsException" name="AbsException" message="tns:AbsException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenFolgeverordnung/Fault/AccessException" name="AccessException" message="tns:AccessException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenFolgeverordnung/Fault/CardException" name="CardException" message="tns:CardException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenFolgeverordnung/Fault/DialogException" name="DialogException" message="tns:DialogException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenFolgeverordnung/Fault/InvalidParameterBewilligungsanfrageException" name="InvalidParameterBewilligungsanfrageException" message="tns:InvalidParameterBewilligungsanfrageException" />
+      <fault wsam:Action="http://soap.abs.client.chipkarte.at/IAbsService/sendenFolgeverordnung/Fault/ServiceException" name="ServiceException" message="tns:ServiceException" />
+    </operation>
+  </portType>
+  <binding name="abs_11Binding" type="tns:IAbsService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="abfragenLangzeitbewilligung">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AbsException">
+        <soap:fault use="literal" name="AbsException" namespace="" />
+      </fault>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="CardException">
+        <soap:fault use="literal" name="CardException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterBewilligungsanfrageException">
+        <soap:fault use="literal" name="InvalidParameterBewilligungsanfrageException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="checkStatus">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="ermittelnPatientenDaten">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AbsException">
+        <soap:fault use="literal" name="AbsException" namespace="" />
+      </fault>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="CardException">
+        <soap:fault use="literal" name="CardException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterBewilligungsanfrageException">
+        <soap:fault use="literal" name="InvalidParameterBewilligungsanfrageException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getRueckantwort">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AbsException">
+        <soap:fault use="literal" name="AbsException" namespace="" />
+      </fault>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterRueckantwortException">
+        <soap:fault use="literal" name="InvalidParameterRueckantwortException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getSVTs">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getStatusBewilligungsAnfragen">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterGetAnfrageStatusException">
+        <soap:fault use="literal" name="InvalidParameterGetAnfrageStatusException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getStatusPatientBewilligungsAnfragen">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="CardException">
+        <soap:fault use="literal" name="CardException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterBewilligungsanfrageException">
+        <soap:fault use="literal" name="InvalidParameterBewilligungsanfrageException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterGetAnfrageStatusException">
+        <soap:fault use="literal" name="InvalidParameterGetAnfrageStatusException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="sendenAnfrage">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AbsException">
+        <soap:fault use="literal" name="AbsException" namespace="" />
+      </fault>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="CardException">
+        <soap:fault use="literal" name="CardException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterBewilligungsanfrageException">
+        <soap:fault use="literal" name="InvalidParameterBewilligungsanfrageException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="sendenFolgeverordnung">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="AbsException">
+        <soap:fault use="literal" name="AbsException" namespace="" />
+      </fault>
+      <fault name="AccessException">
+        <soap:fault use="literal" name="AccessException" namespace="" />
+      </fault>
+      <fault name="CardException">
+        <soap:fault use="literal" name="CardException" namespace="" />
+      </fault>
+      <fault name="DialogException">
+        <soap:fault use="literal" name="DialogException" namespace="" />
+      </fault>
+      <fault name="InvalidParameterBewilligungsanfrageException">
+        <soap:fault use="literal" name="InvalidParameterBewilligungsanfrageException" namespace="" />
+      </fault>
+      <fault name="ServiceException">
+        <soap:fault use="literal" name="ServiceException" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="AbsService">
+    <port name="abs_11" binding="tns:abs_11Binding">
+      <soap:address location="http://localhost/abs/11" />
+    </port>
+  </service>
+</definitions>
