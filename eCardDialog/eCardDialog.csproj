@@ -79,6 +79,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SASWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SASWindow.Designer.cs">
+      <DependentUpon>SASWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="VDASAbfrage.cs" />
     <Compile Include="Web References\ABSRef\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -91,6 +97,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\KSERef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SASReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -220,6 +231,20 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Web References\SASReference\abfrageErgebnis.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SASReference\adressdaten.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SASReference\property.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SASReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SASReference\SasService.wsdl" />
     <None Include="Web References\ServiceManager\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -280,6 +305,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>eCardDialog_KSERef_KseService</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="https://10.196.4.114/sas/12%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SASReference\</RelPath>
+      <UpdateFromURL>https://10.196.4.114/sas/12%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>eCardDialog_SASReference_SasService</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="https://10.196.4.114/servicemanager/1%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServiceManager\</RelPath>
@@ -312,6 +348,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NeuerPatientWindow.resx">
       <DependentUpon>NeuerPatientWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SASWindow.resx">
+      <DependentUpon>SASWindow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

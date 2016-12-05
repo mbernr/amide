@@ -16,6 +16,9 @@
     </Setting>
     <Setting Name="eCardDialog_ABSRef_AbsService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://localhost/abs/11</Value>
+	</Setting>
+    <Setting Name="eCardDialog_SasRef_SasService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost/sas/12</Value>
     </Setting>
   </Settings>
 </SettingsFile>
