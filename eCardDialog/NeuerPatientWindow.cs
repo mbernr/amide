@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace eCardDialog
 {
-    public partial class NeuerPatientWindow : Form
+    public partial class Form2 : Form
     {
         Dialog d;
         card eCard;
-        public NeuerPatientWindow(Dialog d)
+        public Form2(Dialog d)
         {
             InitializeComponent();
             this.d = d;
@@ -26,7 +26,9 @@ namespace eCardDialog
 
             String  readerID = d.getReader().id;
             this.eCard = d.getBaseService().getCardData(readerID);
-            Nachname.Text = eCard.nachname;
+            patientNameUndGeschlecht.Text = eCard.vorname + " " + eCard.nachname + " (" + eCard.geschlechtCode + ")";
+            patientGeburtsdatum.Text = eCard.geburtsdatum;
+            patientSvz.Text = eCard.nummer;
         }
 
         private void KSE_Click(object sender, EventArgs e)
@@ -41,6 +43,10 @@ namespace eCardDialog
             absWindow.Show();
         }
 
-
+        private void btn_SAS_Click(object sender, EventArgs e)
+        {
+            SASWindow sasWindow = new SASWindow(d);
+            sasWindow.Show();
+        }
     }
 }

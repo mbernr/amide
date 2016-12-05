@@ -33,22 +33,22 @@
             // 
             // createDialog
             // 
-            this.createDialog.Location = new System.Drawing.Point(87, 139);
+            this.createDialog.Location = new System.Drawing.Point(82, 94);
             this.createDialog.Name = "createDialog";
-            this.createDialog.Size = new System.Drawing.Size(75, 23);
+            this.createDialog.Size = new System.Drawing.Size(128, 40);
             this.createDialog.TabIndex = 0;
-            this.createDialog.Text = "createDialog";
+            this.createDialog.Text = "Mit Ordinationskarte anmelden";
             this.createDialog.UseVisualStyleBackColor = true;
             this.createDialog.Click += new System.EventHandler(this.createDialog_Click);
             // 
-            // Form1
+            // CreateDialogWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.createDialog);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "CreateDialogWindow";
+            this.Text = "Arztsoftware";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
