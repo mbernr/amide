@@ -19,7 +19,7 @@ namespace eCardDialog
         private ABSRef.AbsService absService = new ABSRef.AbsService();
         private ABSRef.bewilligungsAnfrage bewilligungsAnfrage = new ABSRef.bewilligungsAnfrage();
         private ABSRef.anfrageAntwort anfrageAntwort = new ABSRef.anfrageAntwort();
- 
+
         //      bewilligungsAnfrage.setVerordnungen(Verordnung[] verordnungen) 
 
         public ABSWindow(Dialog d, card eCard)
@@ -28,12 +28,10 @@ namespace eCardDialog
             this.d = d;
             this.eCard = eCard;
             this.absService.Url = "https://10.196.4.114/abs/11";
-            antragstyp.Items.Add("ARZTBRIEF");
-            antragstyp.Items.Add("REZEPT");
+            antragstyp.Items.Add("A");
+            antragstyp.Items.Add("R");
             this.bewilligungsAnfrage.patientenDaten = this.createPatientenDaten(eCard);
-            var verordnungen = new List<ABSRef.verordnung>();
-            verordnungen.Add(this.createVerordnung());
-            this.bewilligungsAnfrage.verordnungen = verordnungen.ToArray();
+         
         }
         
         private ABSRef.patientenDaten createPatientenDaten(card eCard)
@@ -54,11 +52,12 @@ namespace eCardDialog
         {
             ABSRef.verordnung verordnung = new ABSRef.verordnung();
             ABSRef.medikament medikament = new ABSRef.medikament();
-            medikament.name = "Axt";
+            medikament.name = medikamentInput.Text;
             verordnung.medikament = medikament;
-            verordnung.packungsanzahl = 5;
-            verordnung.diagnose = "knie an'ghaut :(";
-            verordnung.begruendung = "pfft";
+            verordnung.packungsanzahl = (int)packungsanzahlInput.Value;
+            verordnung.packungsanzahlSpecified = true;
+            verordnung.diagnose = diagnoseInput.Text.Length > 0 ? diagnoseInput.Text.ToString() : "diagnose";
+            verordnung.begruendung = begruendungInput.Text.Length > 0 ? begruendungInput.Text.ToString() : "begruendung";
             
             return verordnung;
         }
@@ -69,25 +68,71 @@ namespace eCardDialog
             {
                 return;
             }
-
+            
             this.bewilligungsAnfrage.antragstyp = antragstyp.SelectedItem.ToString();
-
+            
             try
             {
-                this.anfrageAntwort =  this.absService.sendenAnfrage(this.d.getDialogId(), this.bewilligungsAnfrage, this.d.getReader().id, null);
-                Console.WriteLine("ABS Erfolg");
+                var verordnungen = new List<ABSRef.verordnung>();
+                verordnungen.Add(this.createVerordnung());
+                this.bewilligungsAnfrage.verordnungen = verordnungen.ToArray();
+
+                this.anfrageAntwort = this.absService.sendenAnfrage(this.d.getDialogId(), this.bewilligungsAnfrage, this.d.getReader().id, null);
+                this.statusBewilligung();
+                antwortNachricht.Text = "Anfrage erfolgreich gesendet.";
+                //Console.WriteLine("ABS Erfolg");
             }
             catch (Exception exception)
             {
+                antwortNachricht.Text = exception.Message.ToString();
                 Console.WriteLine(exception.ToString());
-                //TODO: Better error handling;
-                //          throws ServiceException,
-                //                 CardException,
-                //                 DialogException,
-                //                 InvalidParameterBewilligungsanfrageException,
-                //                 AbsException,
-                //                 AccessException
             }
+
+        }
+
+        private void statusBewilligung()
+        {
+            if(this.anfrageAntwort == null)
+            {
+                return;
+            }
+            ABSRef.statusBewilligungsAnfrage[] statusBewilligungsAnfrage = this.absService.getStatusBewilligungsAnfragen(this.d.getDialogId(), null);
+            List<string> test = new List<string>();
+ 
+            foreach(var x in statusBewilligungsAnfrage)
+            {
+                // x.anfrageId;
+               test.Add(x.anfrageId);
+            }
+            statusBewilligungsAnfrageAuswahl.Items.AddRange(test.ToArray());
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rueckantwortButton_Click(object sender, EventArgs e)
+        {
+            ABSRef.rueckantwort rueckantwort = this.absService.getRueckantwort(this.d.getDialogId(), statusBewilligungsAnfrageAuswahl.SelectedItem.ToString());
+            antwortNachricht.Text = rueckantwort.anfrageEntscheide[0].infoText;
+            rueckantwortEntscheid.Text = rueckantwort.anfrageEntscheide[0].verordnungsEntscheidung;
+            rueckantwortPackungszahl.Text = "Bewilligte Packungszahl: " + rueckantwort.anfrageEntscheide[0].bewilligtePackungsanzahl.ToString();
+            rueckantwortMedikament.Text = "Bewilligtes Medikament: " + rueckantwort.anfrageEntscheide[0].bewilligtesMedikament.name;
+        }
+
+        private void ABSWindow_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void antwortNachricht_Click(object sender, EventArgs e)
+        {
 
         }
     }
