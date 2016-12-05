@@ -57,8 +57,6 @@ namespace eCardDialog
             baseService.setDialogAddress(dialogId, ordinationen[0].ordinationId, bereich.id, null, null, null);
             property[] test = baseService.checkStatus(dialogId);
             test = baseService.checkStatus(dialogId);
-            Console.WriteLine("Dialog aufgebaut" + " Dialog-Status: " + test[0].value);
-            //Console.ReadLine();
         }
 
         private void setOrdination()

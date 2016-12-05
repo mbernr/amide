@@ -23,7 +23,7 @@ namespace eCardDialog
             Dialog d = new Dialog();
             d.createAndAuthenticateDialog();
             this.Hide();
-            NeuerPatientWindow form2 = new NeuerPatientWindow(d);
+            Form2 form2 = new Form2(d);
             form2.Show();
         }
 
