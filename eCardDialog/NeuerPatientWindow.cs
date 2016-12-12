@@ -41,6 +41,10 @@ namespace eCardDialog
             absWindow.Show();
         }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AUM aum = new AUM(d, eCard);
+            aum.Show();
+        }
     }
 }

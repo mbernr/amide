@@ -72,5 +72,15 @@ namespace eCardDialog.Properties {
                 return ((string)(this["eCardDialog_ABSRef_AbsService"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/aum/6")]
+        public string eCardDialog_AUMRef_AumService {
+            get {
+                return ((string)(this["eCardDialog_AUMRef_AumService"]));
+            }
+        }
     }
 }

@@ -53,6 +53,12 @@
     <Compile Include="ABSWindow.Designer.cs">
       <DependentUpon>ABSWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="AUM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AUM.Designer.cs">
+      <DependentUpon>AUM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialog.cs" />
     <Compile Include="CreateDialogWindow.cs">
       <SubType>Form</SubType>
@@ -81,6 +87,11 @@
     </Compile>
     <Compile Include="VDASAbfrage.cs" />
     <Compile Include="Web References\ABSRef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\AUMRef\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -139,6 +150,35 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\ABSRef\svtProperty.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AUMRef\aufSuchergebnis.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AUMRef\aufSvtProperty.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AUMRef\AumService.wsdl" />
+    <None Include="Web References\AUMRef\besondereArbeitsunfaehigkeitsursache.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AUMRef\diagnoseCodeTyp.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AUMRef\property.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AUMRef\quittung.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AUMRef\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\AUMRef\rueckdatierungsgrund.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AUMRef\zusatzdiagnose.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\BaseRef\baseProperty.datasource">
@@ -258,6 +298,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>eCardDialog_ABSRef_AbsService</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="https://10.196.4.114/aum/6%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\AUMRef\</RelPath>
+      <UpdateFromURL>https://10.196.4.114/aum/6%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>eCardDialog_AUMRef_AumService</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="https://10.196.4.114/base/15%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\BaseRef\</RelPath>
@@ -304,6 +355,9 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AUM.resx">
+      <DependentUpon>AUM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateDialogWindow.resx">
       <DependentUpon>CreateDialogWindow.cs</DependentUpon>
     </EmbeddedResource>
