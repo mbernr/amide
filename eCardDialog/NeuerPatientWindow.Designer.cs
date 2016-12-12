@@ -36,11 +36,12 @@
             this.patientGeburtsdatum = new System.Windows.Forms.Label();
             this.patientSvz = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.aumButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // neuerPatient
             // 
-            this.neuerPatient.Location = new System.Drawing.Point(12, 12);
+            this.neuerPatient.Location = new System.Drawing.Point(15, 12);
             this.neuerPatient.Name = "neuerPatient";
             this.neuerPatient.Size = new System.Drawing.Size(114, 23);
             this.neuerPatient.TabIndex = 0;
@@ -69,7 +70,7 @@
             // 
             // ABS
             // 
-            this.ABS.Location = new System.Drawing.Point(12, 241);
+            this.ABS.Location = new System.Drawing.Point(12, 239);
             this.ABS.Margin = new System.Windows.Forms.Padding(2);
             this.ABS.Name = "ABS";
             this.ABS.Size = new System.Drawing.Size(75, 25);
@@ -80,7 +81,7 @@
             // 
             // btn_SAS
             // 
-            this.btn_SAS.Location = new System.Drawing.Point(12, 162);
+            this.btn_SAS.Location = new System.Drawing.Point(11, 162);
             this.btn_SAS.Margin = new System.Windows.Forms.Padding(2);
             this.btn_SAS.Name = "btn_SAS";
             this.btn_SAS.Size = new System.Drawing.Size(75, 24);
@@ -105,11 +106,30 @@
             this.patientSvz.Size = new System.Drawing.Size(0, 13);
             this.patientSvz.TabIndex = 6;
             // 
+            // button1
+            // 
+            this.button1.AutoSize = true;
+            this.button1.Location = new System.Drawing.Point(12, 110);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(0, 13);
+            this.button1.TabIndex = 7;
+            // 
+            // aumButton
+            // 
+            this.aumButton.Location = new System.Drawing.Point(12, 269);
+            this.aumButton.Name = "aumButton";
+            this.aumButton.Size = new System.Drawing.Size(75, 23);
+            this.aumButton.TabIndex = 7;
+            this.aumButton.Text = "AUM";
+            this.aumButton.UseVisualStyleBackColor = true;
+            this.aumButton.Click += new System.EventHandler(this.aumButton_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 379);
+            this.Controls.Add(this.aumButton);
             this.Controls.Add(this.patientSvz);
             this.Controls.Add(this.patientGeburtsdatum);
             this.Controls.Add(this.ABS);
@@ -134,5 +154,6 @@
         private System.Windows.Forms.Label patientGeburtsdatum;
         private System.Windows.Forms.Label patientSvz;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button aumButton;
     }
 }

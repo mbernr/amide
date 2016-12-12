@@ -47,7 +47,14 @@ namespace eCardDialog
         {
             SASWindow sasWindow = new SASWindow(d);
             sasWindow.Show();
+        }
         private void button1_Click(object sender, EventArgs e)
+        {
+            AUM aum = new AUM(d, eCard);
+            aum.Show();
+        }
+
+        private void aumButton_Click(object sender, EventArgs e)
         {
             AUM aum = new AUM(d, eCard);
             aum.Show();

@@ -393,7 +393,7 @@
   <ItemGroup>
     <EmbeddedResource Include="ABSWindow.resx">
       <DependentUpon>ABSWindow.cs</DependentUpon>
-     </EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="AUM.resx">
       <DependentUpon>AUM.cs</DependentUpon>
     </EmbeddedResource>

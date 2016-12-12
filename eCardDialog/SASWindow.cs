@@ -1,6 +1,5 @@
 ﻿using eCardDialog.BaseRef;
 using eCardDialog.SASReference;
-using eCardDialog.SASReference;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
