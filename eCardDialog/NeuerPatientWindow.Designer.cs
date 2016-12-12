@@ -35,6 +35,7 @@
             this.btn_SAS = new System.Windows.Forms.Button();
             this.patientGeburtsdatum = new System.Windows.Forms.Label();
             this.patientSvz = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // neuerPatient
@@ -132,5 +133,6 @@
         private System.Windows.Forms.Button btn_SAS;
         private System.Windows.Forms.Label patientGeburtsdatum;
         private System.Windows.Forms.Label patientSvz;
+        private System.Windows.Forms.Button button1;
     }
 }
