@@ -340,6 +340,9 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ABSWindow.resx">
+      <DependentUpon>ABSWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateDialogWindow.resx">
       <DependentUpon>CreateDialogWindow.cs</DependentUpon>
     </EmbeddedResource>
